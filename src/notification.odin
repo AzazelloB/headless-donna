@@ -39,6 +39,7 @@ create_toast :: proc(title: string, text: string) -> bool {
 	}
 
 	windows.Shell_NotifyIconW(windows.NIM_ADD, &data) or_return
+	// NOTE: When a notification is deleted it won't stay in notification center
 	windows.Shell_NotifyIconW(windows.NIM_DELETE, &data) or_return
 
 	return true
