@@ -154,6 +154,41 @@ string_to_number :: proc(str: string) -> i32 {
 }
 
 main :: proc() {
+	context.random_generator = crypto.random_generator()
+
+	time, err := datetime.components_to_time(15, 30, 0)
+	day_of_week := datetime.Weekday.Monday
+
+	recurrence := EveryWeek {
+		time        = time,
+		day_of_week = day_of_week,
+	}
+
+	event := Event {
+		id         = uuid.to_string(uuid.generate_v4()),
+		title      = "Go gym",
+		recurrence = recurrence,
+	}
+
+	command := AddCommand {
+		event = event,
+	}
+	encoded := encode(command)
+	decoded := decode(encoded)
+
+	fmt.println("original:", command)
+	fmt.println("size:", size_of(command))
+
+	fmt.println("encoded:", encoded)
+	fmt.println("size:", size_of(encoded))
+
+	fmt.println("decoded:", decoded)
+	fmt.println("size:", size_of(decoded))
+
+	fmt.println("same?", command == decoded)
+}
+
+main1 :: proc() {
 	context.logger = log.create_console_logger(.Debug, {.Terminal_Color, .Level})
 
 	args := os.args
