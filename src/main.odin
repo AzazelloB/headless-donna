@@ -154,7 +154,9 @@ string_to_number :: proc(str: string) -> i32 {
 }
 
 main :: proc() {
-	context.logger = log.create_console_logger(.Debug, {.Terminal_Color, .Level})
+    create_toast("Title", "Text")
+
+    context.logger = log.create_console_logger(.Debug, {.Terminal_Color, .Level})
 
 	args := os.args
 	program := next_arg(&args)
