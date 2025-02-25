@@ -60,7 +60,7 @@ decode :: proc(bytes: []byte) -> Command {
 		id := transmute(string)advance(&bytes, &offset, id_len)
 
 		title_len_bytes := advance(&bytes, &offset, 2)
-		title_len := int(title_len_bytes[1] << 8 | title_len_bytes[0])
+		title_len := int(title_len_bytes[1]) << 8 | int(title_len_bytes[0])
 		title := transmute(string)advance(&bytes, &offset, title_len)
 
 		cmd.event = Event {
